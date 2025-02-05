@@ -2,6 +2,6 @@ pandas
 numpy
 matplotlib
 seaborn
-dill
+pickle
 category_encoders
 #-e .

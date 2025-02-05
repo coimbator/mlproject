@@ -42,7 +42,7 @@ class DataPreprocess:
             cat_pipeline= Pipeline(
                 steps=[
                     #("Binary_Encoder", ce.BinaryEncoder()),
-                    ("One_Hot_Encoder",OneHotEncoder()),
+                    ("One_Hot_Encoder",OneHotEncoder(handle_unknown='ignore')),
                     #("Label_Encoder", LabelEncoder()),
                 ]
             )
@@ -94,9 +94,10 @@ class DataPreprocess:
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test)
 
-            train_arr= np.c_[input_feature_train_arr, np.array(target_feature_train)]
-            test_arr= np.c_[input_feature_test_arr, np.array(target_feature_test)]
-
+            train_arr= np.c_[input_feature_train_arr, np.array(target_feature_train)]   # 'np c_' Concatenates column-wise, ensuring the target 
+            test_arr= np.c_[input_feature_test_arr, np.array(target_feature_test)]      # variable is added as the last column in train_arr and test_arr
+                                                                                        # 'np.array(target_feature_train)' ensures the target variable 
+                                                                                        # is in the correct format before concatenation.
             logging.info("Saved preprocessing")
 
             save_object(
