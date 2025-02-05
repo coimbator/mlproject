@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transform import DatapreprocessConfig, DataPreprocess
 
 @dataclass
 class DataIngestConfig:
@@ -47,4 +48,7 @@ class DataIngest:
 
 if __name__=="__main__":
     obj=DataIngest()
-    obj.initiate_Ingestion()
+    train_data, test_data= obj.initiate_Ingestion()
+
+    data_preprocess=DataPreprocess()
+    data_preprocess.initiate_data_preprocess(train_data, test_data)
